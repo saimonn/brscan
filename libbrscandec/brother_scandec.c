@@ -3,7 +3,10 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+#define BUGCHK_GUARD ((void*)0x53545244)
 
 typedef unsigned char byte;
 typedef unsigned int uint;
@@ -13,16 +16,65 @@ typedef uint32_t undefined4;
 typedef uint64_t undefined8;
 
 static HANDLE DAT_00208f00;
-static uint64_t DAT_00208f08;
+static HANDLE DAT_00208f08;
 static HANDLE DAT_00208f10;
 static byte* DAT_00208f18;
-static long DAT_00208ef8;
+static long malloc_size;
 void* bugchk;
 void* DAT_00208ef0;
 
-byte * FUN_001063f3(SCANDEC_WRITE *param_1,size_t *param_2);
-undefined * FUN_00106751(SCANDEC_WRITE *param_1,size_t *param_2);
-static undefined8 (*DAT_00208f20)(SCANDEC_WRITE *param_1,size_t *param_2);
+static byte* FUN_001063f3(SCANDEC_WRITE *param_1,size_t *param_2);
+static byte* FUN_00106751(SCANDEC_WRITE *param_1,size_t *param_2);
+byte* (*DAT_00208f20)(SCANDEC_WRITE *param_1,size_t *param_2);
+
+static int nMallocCnt = 0;
+static int nFreeCnt = 0;
+
+static void* bugchk_malloc(size_t size, const char* filename, int line)
+{
+  nMallocCnt++;
+  void** result = (void**)malloc(size + 3 * sizeof(void*));
+  if (result) {
+    // Surround by check patterns and save the allocation length.
+    result[0] = BUGCHK_GUARD;
+    *(uint64_t*)&result[1] = size;
+    *(void**)((char*)(result + 2) + size) = BUGCHK_GUARD;
+    return (void*)(result + 2);
+  }
+  fprintf(stderr, "bugchk_malloc(size=%zu), can\'t allocate@%s(%d)\n", size, filename, line);
+  abort();
+}
+
+static void bugchk_free(void* ptr, const char* filename, int line)
+{
+  long *plVar1;
+  
+  nFreeCnt++;
+  if (!ptr) {
+    fprintf(stderr,"bugchk_free(ptr=%p)@%s(%d)\n", ptr, filename, line);
+    fflush(stderr);
+    abort();
+  }
+
+  if (*(long *)(ptr + -0x10) == 0x53545244) {
+    uint64_t endMark = *(long *)(ptr + *(long *)(ptr + -8));
+    if (endMark == 0x53545244) {
+      return;
+    }
+    else {
+      size_t size = *(long *)(ptr + -8);
+      fprintf(stderr,"bugchk_free(ptr=%p), invalid end-mark=0x%lx, size=%zu@%s(%d)\n", ptr,
+              endMark, size, filename, line);
+    }
+  }
+  else {
+    fprintf(stderr,"bugchk_free(ptr=%p), invalid begin-mark=0x%lx@%s(%d)\n", ptr,
+            *(long *)(ptr + -0x10), filename, line);
+  }
+
+  fflush(stderr);
+  abort();
+}
 
 BOOL ScanDecOpen(SCANDEC_OPEN *param_1)
 {
@@ -43,17 +95,17 @@ BOOL ScanDecOpen(SCANDEC_OPEN *param_1)
 
   if ((param_1->nColorType >> 8 & 1) == 0) {
     if ((param_1->nColorType >> 9 & 1) == 0) {
-      DAT_00208ef8 = param_1->nOutDataKind * 3;
+      malloc_size = param_1->nOutDataKind * 3;
     }
     else {
-      DAT_00208ef8 = param_1->nOutDataKind;
+      malloc_size = param_1->nOutDataKind;
     }
   }
   else {
-    DAT_00208ef8 = param_1->nOutDataKind;
+    malloc_size = param_1->nOutDataKind;
   }
-  local_10 = param_1;
-  bugchk = bugchk_malloc(DAT_00208ef8,0x45,0x106f90);
+  local_10 = (undefined4 *)param_1;
+  bugchk = bugchk_malloc(malloc_size, __FILE__, __LINE__);
   if (bugchk == 0x0) {
     local_5c = 0;
   }
@@ -68,7 +120,7 @@ BOOL ScanDecOpen(SCANDEC_OPEN *param_1)
     local_34 = local_10[9];
     uVar1 = ChangeResoInit((undefined8 *)&local_58);
     if ((int)uVar1 == 0) {
-      bugchk_free((long)bugchk,0x59,0x106f90);
+      bugchk_free(bugchk, __FILE__, __LINE__);
       bugchk = (undefined8 *)0x0;
       local_5c = 0;
     }
@@ -90,7 +142,7 @@ BOOL ScanDecOpen(SCANDEC_OPEN *param_1)
 BOOL ScanDecClose(void)
 { 
   if (bugchk != 0) {
-    bugchk_free(bugchk,0x106,0x106f90);
+    bugchk_free(bugchk, __FILE__, __LINE__);
     bugchk = 0;
   }
   ChangeResoClose();
@@ -117,7 +169,7 @@ DWORD ScanDecPageEnd(SCANDEC_WRITE *param_1, INT *param_2)
   local_30 = *(undefined4 *)(param_1 + 0x28);
   *param_2 = 0;
   local_18 = param_2;
-  local_10 = param_1;
+  local_10 = (long)param_1;
   lVar1 = ChangeResoWriteEnd(local_58,param_2);
   if (DAT_00208f08 != 0) {
     DAT_00208f08 = 0;
@@ -171,7 +223,7 @@ DWORD ScanDecWrite(SCANDEC_WRITE *param_1, INT * param_2)
 {
   undefined8 uVar1;
   undefined4 local_58 [2];
-  undefined8 local_50;
+  byte *local_50;
   undefined8 local_48;
   undefined8 local_40;
   undefined8 local_38;
@@ -181,7 +233,7 @@ DWORD ScanDecWrite(SCANDEC_WRITE *param_1, INT * param_2)
   long local_10;
   
   local_18 = param_2;
-  local_10 = param_1;
+  local_10 = (long)param_1;
   local_50 = (*DAT_00208f20)(param_1,local_28);
   local_58[0] = *(undefined4 *)(local_10 + 4);
   local_48 = local_28[0];
@@ -211,15 +263,15 @@ byte * FUN_001063f3(SCANDEC_WRITE *param_1,size_t *param_2)
   *param_2 = 0;
   pbVar4 = DAT_00208ef0;
   if (param_1->nInDataComp == 1) {
-    memset(DAT_00208ef0,0,DAT_00208ef8);
+    memset(DAT_00208ef0,0,malloc_size);
     local_28 = DAT_00208ef0;
-    *param_2 = DAT_00208ef8;
+    *param_2 = malloc_size;
   }
   else {
     if (param_1->nInDataComp == 3) {
       local_30 = DAT_00208ef0;
       local_28 = DAT_00208ef0;
-      local_48 = DAT_00208ef8;
+      local_48 = malloc_size;
       if (DAT_00208f08 == 0) {
         do {
           if (local_48 == 0) {
@@ -320,7 +372,7 @@ byte * FUN_001063f3(SCANDEC_WRITE *param_1,size_t *param_2)
       else {
         local_30 = DAT_00208ef0;
         local_28 = DAT_00208ef0;
-        local_48 = DAT_00208ef8;
+        local_48 = malloc_size;
         while ((local_48 != 0 && (local_40 != 0))) {
           bVar1 = *local_20;
           local_20 = local_20 + 1;
@@ -360,15 +412,15 @@ undefined * FUN_00106751(SCANDEC_WRITE *param_1,size_t *param_2)
   *param_2 = 0;
   puVar5 = DAT_00208ef0;
   if (param_1->nInDataComp == 1) {
-    memset(DAT_00208ef0,0,DAT_00208ef8);
+    memset(DAT_00208ef0,0,malloc_size);
     local_30 = DAT_00208ef0;
-    *param_2 = DAT_00208ef8;
+    *param_2 = malloc_size;
   }
   else {
     if (param_1->nInDataComp == 3) {
       local_38 = DAT_00208ef0;
       local_30 = DAT_00208ef0;
-      local_50 = DAT_00208ef8;
+      local_50 = malloc_size;
       if (DAT_00208f08 == 0) {
         do {
           if (local_50 == 0) {
@@ -520,7 +572,7 @@ undefined * FUN_00106751(SCANDEC_WRITE *param_1,size_t *param_2)
       if (DAT_00208f08 == 0) {
         local_38 = DAT_00208ef0;
         local_30 = DAT_00208ef0;
-        local_50 = DAT_00208ef8;
+        local_50 = malloc_size;
         while ((local_50 != 0 && (local_48 != 0))) {
           bVar2 = *local_28;
           local_28 = local_28 + 1;
@@ -546,7 +598,7 @@ undefined * FUN_00106751(SCANDEC_WRITE *param_1,size_t *param_2)
       else {
         local_38 = DAT_00208ef0;
         local_30 = DAT_00208ef0;
-        local_50 = DAT_00208ef8;
+        local_50 = malloc_size;
         while ((local_50 != 0 && (local_48 != 0))) {
           bVar2 = *local_28;
           local_28 = local_28 + 1;
