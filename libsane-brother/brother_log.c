@@ -43,6 +43,8 @@
 
 #include "brother_log.h"
 
+int g_sane_debug_dll = 0;
+
 //
 // ログファイル・モジュールの制御用変数
 //
@@ -136,9 +138,18 @@ WriteLogFileString(LPSTR lpszLogStr)
 //
 //-----------------------------------------------------------------------------
 //	OutputLogString（旧LogString）
-void WriteLog( LPSTR first, ... )
+void
+WriteLog( LPSTR first, ... )
 {
-    if (nLogFile) {
+    if (g_sane_debug_dll) {
+        va_list  marker;
+
+        va_start(marker, first);
+        vprintf(first, marker);
+        va_end(marker);
+        printf("\n");
+    }
+    else if (nLogFile) {
 	va_list  marker;
 	char  szStrBuff[ LOGSTRMAXLEN ];
 
@@ -148,8 +159,6 @@ void WriteLog( LPSTR first, ... )
 
 	WriteLogFileString( (LPSTR)szStrBuff );
     }
-
-    return;
 }
 
 

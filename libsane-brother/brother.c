@@ -68,6 +68,8 @@ Not support (force causing compile error)
 #include "brother_log.h"
 #include "brother_bugchk.h"
 
+extern int g_sane_debug_dll;
+
 TDevice *g_pdev;
 
 static int      num_devices;	// USB上に検出されたBrotherデバイス数
@@ -375,6 +377,10 @@ sane_init (SANE_Int *version_code, SANE_Auth_Callback authCB)
   int                iBus,rc;
   MODELINF          modelInfList;
   int i,nnetdev;
+
+  char* c_sane_debug_dll = getenv("SANE_DEBUG_DLL");
+  if (c_sane_debug_dll)
+    g_sane_debug_dll = atoi(c_sane_debug_dll);
 
   WriteLog( "<<< sane_init start >>> " );
 #if       BRSANESUFFIX == 2
