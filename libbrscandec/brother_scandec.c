@@ -15,14 +15,14 @@ typedef uint64_t undefined8;
 static HANDLE DAT_00208f00;
 static uint64_t DAT_00208f08;
 static HANDLE DAT_00208f10;
-static uint64_t DAT_00208f18;
-static undefined8 (*DAT_00208f20)();
+static byte* DAT_00208f18;
 static long DAT_00208ef8;
 void* bugchk;
 void* DAT_00208ef0;
 
-byte * FUN_001063f3(int *param_1,size_t *param_2);
-undefined * FUN_00106751(int *param_1,size_t *param_2);
+byte * FUN_001063f3(SCANDEC_WRITE *param_1,size_t *param_2);
+undefined * FUN_00106751(SCANDEC_WRITE *param_1,size_t *param_2);
+static undefined8 (*DAT_00208f20)(SCANDEC_WRITE *param_1,size_t *param_2);
 
 BOOL ScanDecOpen(SCANDEC_OPEN *param_1)
 {
@@ -43,14 +43,14 @@ BOOL ScanDecOpen(SCANDEC_OPEN *param_1)
 
   if ((param_1->nColorType >> 8 & 1) == 0) {
     if ((param_1->nColorType >> 9 & 1) == 0) {
-      DAT_00208ef8 = *(long *)(param_1 + 6) * 3;
+      DAT_00208ef8 = param_1->nOutDataKind * 3;
     }
     else {
-      DAT_00208ef8 = *(long *)(param_1 + 6);
+      DAT_00208ef8 = param_1->nOutDataKind;
     }
   }
   else {
-    DAT_00208ef8 = *(long *)(param_1 + 6);
+    DAT_00208ef8 = param_1->nOutDataKind;
   }
   local_10 = param_1;
   bugchk = bugchk_malloc(DAT_00208ef8,0x45,0x106f90);
@@ -109,7 +109,7 @@ DWORD ScanDecPageEnd(SCANDEC_WRITE *param_1, INT *param_2)
   undefined4 *local_18;
   long local_10;
 
-  local_58[0] = *(undefined4 *)(param_1 + 4);
+  local_58[0] = param_1->dwLineDataSize;
   local_50 = 0;
   local_48 = 0;
   local_40 = *(undefined8 *)(param_1 + 0x18);
@@ -204,7 +204,7 @@ DWORD ScanDecWrite(SCANDEC_WRITE *param_1, INT * param_2)
   return uVar1;
 }
 
-byte * FUN_001063f3(int *param_1,size_t *param_2)
+byte * FUN_001063f3(SCANDEC_WRITE *param_1,size_t *param_2)
 {
   byte bVar1;
   size_t sVar2;
@@ -215,19 +215,19 @@ byte * FUN_001063f3(int *param_1,size_t *param_2)
   char local_32;
   byte *local_30;
   byte *local_28;
-  byte *local_20;
+  CHAR *local_20;
 
-  local_20 = *(byte **)(param_1 + 2);
-  local_40 = *(size_t *)(param_1 + 4);
+  local_20 = param_1->pLineData;
+  local_40 = param_1->dwLineDataSize;
   *param_2 = 0;
   pbVar4 = DAT_00208ef0;
-  if (*param_1 == 1) {
+  if (param_1->nInDataComp == 1) {
     memset(DAT_00208ef0,0,DAT_00208ef8);
     local_28 = DAT_00208ef0;
     *param_2 = DAT_00208ef8;
   }
   else {
-    if (*param_1 == 3) {
+    if (param_1->nInDataComp == 3) {
       local_30 = DAT_00208ef0;
       local_28 = DAT_00208ef0;
       local_48 = DAT_00208ef8;
@@ -347,7 +347,7 @@ byte * FUN_001063f3(int *param_1,size_t *param_2)
   return local_28;
 }
 
-undefined * FUN_00106751(int *param_1,size_t *param_2)
+undefined * FUN_00106751(SCANDEC_WRITE *param_1,size_t *param_2)
 {
   byte bVar1;
   byte bVar2;
@@ -358,25 +358,25 @@ undefined * FUN_00106751(int *param_1,size_t *param_2)
   byte *local_60;
   byte *local_58;
   size_t local_50;
-  long local_48;
+  DWORD local_48;
   char local_3a;
   undefined *local_38;
   undefined *local_30;
-  byte *local_28;
+  CHAR *local_28;
 
-  local_28 = *(byte **)(param_1 + 2);
-  local_48 = *(long *)(param_1 + 4);
+  local_28 = param_1->pLineData;
+  local_48 = param_1->dwLineDataSize;
   local_58 = DAT_00208f18;
   local_60 = DAT_00208f18 + local_48;
   *param_2 = 0;
   puVar5 = DAT_00208ef0;
-  if (*param_1 == 1) {
+  if (param_1->nInDataComp == 1) {
     memset(DAT_00208ef0,0,DAT_00208ef8);
     local_30 = DAT_00208ef0;
     *param_2 = DAT_00208ef8;
   }
   else {
-    if (*param_1 == 3) {
+    if (param_1->nInDataComp == 3) {
       local_38 = DAT_00208ef0;
       local_30 = DAT_00208ef0;
       local_50 = DAT_00208ef8;
