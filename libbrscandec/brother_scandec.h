@@ -9,6 +9,8 @@
 #ifndef	__BROTHER_SCAN_DECODE_H
 #define	__BROTHER_SCAN_DECODE_H
 
+#include <stdint.h>
+
 typedef	struct {
 	INT		nInResoX ;		/* 入力解像度 */
 	INT		nInResoY ;		/* 入力解像度 */
@@ -68,5 +70,11 @@ typedef DWORD (*SCANDECWRITE) ( SCANDEC_WRITE *, INT * );
 typedef DWORD (*SCANDECPAGEEND) ( SCANDEC_WRITE *, INT * );
 typedef BOOL  (*SCANDECCLOSE) ( void );
 
+typedef unsigned char byte;
+typedef unsigned int uint;
+typedef unsigned long ulong;
+typedef unsigned char undefined;
+typedef uint32_t undefined4;
+typedef uint64_t undefined8;
 
 #endif	/* ! __BROTHER_SCAN_DECODE_H */
