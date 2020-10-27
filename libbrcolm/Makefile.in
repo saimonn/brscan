@@ -674,7 +674,7 @@ uninstall-am:
 install-data-local:
 	$(INSTALL) -D -t $(DESTDIR)$(libdir) $(dist_noinst_DATA) && \
 	cd $(DESTDIR)$(libdir) && \
-	$(LN_S) $(dist_noinst_DATA) $(basename $(basename $(dist_noinst_DATA)))
+	$(LN_S) -f $(dist_noinst_DATA) $(basename $(basename $(dist_noinst_DATA)))
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
