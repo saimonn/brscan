@@ -9,6 +9,8 @@
 #ifndef	__BROTHER_SCAN_DECODE_H
 #define	__BROTHER_SCAN_DECODE_H
 
+#include "../libsane-brother/brother_dtype.h"
+
 #include <stdint.h>
 
 typedef	struct {
@@ -72,9 +74,14 @@ typedef BOOL  (*SCANDECCLOSE) ( void );
 
 typedef unsigned char byte;
 typedef unsigned int uint;
+typedef unsigned short ushort;
 typedef unsigned long ulong;
 typedef unsigned char undefined;
+typedef unsigned short undefined2;
 typedef uint32_t undefined4;
 typedef uint64_t undefined8;
+
+__int128 ZEXT816(int64_t val);
+int64_t SUB168(__int128 val1, int64_t val2);
 
 #endif	/* ! __BROTHER_SCAN_DECODE_H */

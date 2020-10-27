@@ -1,6 +1,5 @@
-#include "../libsane-brother/brother_dtype.h"
-#include "brother_bugchk.h"
 #include "brother_scandec.h"
+#include "brother_bugchk.h"
 #include "brother_chreso.h"
 
 #include <string.h>

@@ -1,4 +1,5 @@
 #include "brother_bugchk.h"
+#include "brother_scandec.h"
 
 #include <malloc.h>
 #include <stdlib.h>
