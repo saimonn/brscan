@@ -131,44 +131,33 @@ DWORD ScanDecPageEnd(SCANDEC_WRITE *param_1, INT *param_2)
 
 BOOL ScanDecPageStart(void)
 {
-  ulong uVar1;
-  uint local_c;
-
   DAT_00208ef0 = bugchk;
-  if (bugchk == 0) {
-    local_c = 0;
-  }
-  else {
-    if ((DAT_00208f00 == 0) || (DAT_00208f08 = DAT_00208f00, DAT_00208f00 != 0)) {
-      DAT_00208f20 = FUN_001063f3;
-      if (DAT_00208f10 != 0) {
-        DAT_00208f18 = DAT_00208f10;
-        if ((DAT_00208f10 == 0) && (DAT_00208ef0 = 0, DAT_00208f08 != 0)) {
-          DAT_00208f08 = 0;
-        }
-        DAT_00208f20 = FUN_00106751;
+  if (!bugchk) return 0;
+
+  if ((DAT_00208f00 == 0) || (DAT_00208f08 = DAT_00208f00, DAT_00208f00 != 0)) {
+    DAT_00208f20 = FUN_001063f3;
+    if (DAT_00208f10 != 0) {
+      DAT_00208f18 = DAT_00208f10;
+      if ((DAT_00208f10 == 0) && (DAT_00208ef0 = 0, DAT_00208f08 != 0)) {
+        DAT_00208f08 = 0;
       }
-      uVar1 = ChangeResoWriteStart();
-      if ((int)uVar1 == 0) {
-        DAT_00208ef0 = 0;
-        if (DAT_00208f08 != 0) {
-          DAT_00208f08 = 0;
-        }
-        if (DAT_00208f18 != 0) {
-          DAT_00208f18 = 0;
-        }
-        local_c = 0;
-      }
-      else {
-        local_c = 1;
-      }
+      DAT_00208f20 = FUN_00106751;
     }
-    else {
+    if (ChangeResoWriteStart() == 0) {
       DAT_00208ef0 = 0;
-      local_c = 0;
+      if (DAT_00208f08 != 0) {
+        DAT_00208f08 = 0;
+      }
+      if (DAT_00208f18 != 0) {
+        DAT_00208f18 = 0;
+      }
+      return 0;
     }
+    return 1;
   }
-  return (ulong)local_c;
+
+  DAT_00208ef0 = 0;
+  return 0;
 }
 
 void ScanDecSetTblHandle(HANDLE param_1, HANDLE param_2)
