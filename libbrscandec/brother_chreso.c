@@ -1337,6 +1337,832 @@ ulong FUN_00105413(float param_1)
   return (ulong)(uint)local_14;
 }
 
+long FUN_0010222c(int param_1,long param_2,int param_3)
+{
+  long local_28;
+  
+  if (param_1 == 0) {
+    local_28 = param_3 * DAT_00208968;
+  }
+  else {
+    local_28 = -((param_3 + 1) * DAT_00208968);
+  }
+  local_28 = param_2 + local_28;
+  return local_28;
+}
+
+ulong FUN_001044ca(void *param_1)
+{
+  int iVar1;
+  short sVar2;
+  ulong uVar3;
+  ulong local_28;
+  ulong local_20;
+  int local_18;
+  
+  iVar1 = DAT_002088dc;
+  DAT_002088dc = DAT_002088dc + 1;
+  if (param_1 == (void *)0x0) {
+    local_18 = iVar1 + -1;
+    if (local_18 < 0) {
+      local_18 = DAT_002088d8 + -1;
+    }
+    memcpy(*(void **)(&DAT_002088e8 + (long)iVar1 * 8),
+           *(void **)(&DAT_002088e8 + (long)local_18 * 8),DAT_002088d0);
+  }
+  else {
+    local_20 = 0;
+    while (local_20 < DAT_00208960) {
+      local_28 = 0;
+      while (local_28 < 8) {
+        if (((int)(uint)*(byte *)(local_20 + (long)param_1) >> (7U - (char)local_28 & 0x1f) & 1U) ==
+            0) {
+          *(undefined *)(local_20 * 8 + *(long *)(&DAT_002088e8 + (long)iVar1 * 8) + local_28) = 0;
+        }
+        else {
+          *(undefined *)(local_20 * 8 + *(long *)(&DAT_002088e8 + (long)iVar1 * 8) + local_28) = 10;
+        }
+        local_28 = local_28 + 1;
+      }
+      local_20 = local_20 + 1;
+    }
+  }
+  sVar2 = DAT_00208988;
+  DAT_00208988 = DAT_00208988 + 1;
+  if (sVar2 == 0) {
+    memcpy(*(void **)(&DAT_002088e0 + (long)DAT_002088d8 * 8),param_1,DAT_002088d0);
+  }
+  uVar3 = (ulong)DAT_002088dc;
+  if (DAT_002088d8 <= (int)DAT_002088dc) {
+    DAT_002088dc = 0;
+  }
+  return uVar3;
+}
+
+ulong FUN_00104654(void *param_1)
+{
+  int iVar1;
+  short sVar2;
+  ulong uVar3;
+  int local_18;
+  
+  iVar1 = DAT_002088dc;
+  DAT_002088dc = DAT_002088dc + 1;
+  if (param_1 == (void *)0x0) {
+    local_18 = iVar1 + -1;
+    if (local_18 < 0) {
+      local_18 = DAT_002088d8 + -1;
+    }
+    memcpy(*(void **)(&DAT_002088e8 + (long)iVar1 * 8),
+           *(void **)(&DAT_002088e8 + (long)local_18 * 8),DAT_002088d0);
+  }
+  else {
+    memcpy(*(void **)(&DAT_002088e8 + (long)iVar1 * 8),param_1,DAT_002088d0);
+  }
+  sVar2 = DAT_00208988;
+  DAT_00208988 = DAT_00208988 + 1;
+  if (sVar2 == 0) {
+    memcpy(*(void **)(&DAT_002088e0 + (long)DAT_002088d8 * 8),param_1,DAT_002088d0);
+  }
+  uVar3 = (ulong)DAT_002088dc;
+  if (DAT_002088d8 <= (int)DAT_002088dc) {
+    DAT_002088dc = 0;
+  }
+  return uVar3;
+}
+
+ulong FUN_00104a67(void *param_1,int param_2,void *param_3)
+{
+  BOOL bVar1;
+  ulong uVar2;
+  ulong local_28;
+  
+  uVar2 = SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) * ZEXT816(DAT_00208960) >> 0x41,0);
+  if (param_2 == 3) {
+    _DAT_002088e0 = _DAT_002088e0 + 1;
+    local_28 = 0;
+    while (local_28 < uVar2) {
+      *(undefined *)((long)param_3 + local_28 * 3 + 1) = *(undefined *)(local_28 + (long)param_1);
+      local_28 = local_28 + 1;
+    }
+    goto LAB_00104c78;
+  }
+  if (param_2 < 4) {
+    if (param_2 == 2) {
+      _DAT_002088e0 = _DAT_002088e0 + 1;
+      local_28 = 0;
+      while (local_28 < uVar2) {
+        *(undefined *)(local_28 * 3 + (long)param_3) = *(undefined *)(local_28 + (long)param_1);
+        local_28 = local_28 + 1;
+      }
+      goto LAB_00104c78;
+    }
+  }
+  else {
+    if (param_2 == 4) {
+      _DAT_002088e0 = _DAT_002088e0 + 1;
+      local_28 = 0;
+      while (local_28 < uVar2) {
+        *(undefined *)((long)param_3 + local_28 * 3 + 2) = *(undefined *)(local_28 + (long)param_1);
+        local_28 = local_28 + 1;
+      }
+      goto LAB_00104c78;
+    }
+    if (param_2 == 5) {
+      _DAT_002088e0 = _DAT_002088e0 + 3;
+      memcpy(param_3,param_1,DAT_00208960);
+      goto LAB_00104c78;
+    }
+  }
+  _DAT_002088e0 = _DAT_002088e0 + 3;
+  local_28 = 0;
+  while (local_28 < uVar2) {
+    *(undefined *)(local_28 * 3 + (long)param_3) = *(undefined *)((long)param_1 + local_28 * 3 + 2);
+    *(undefined *)((long)param_3 + local_28 * 3 + 1) =
+         *(undefined *)((long)param_1 + local_28 * 3 + 1);
+    *(undefined *)((long)param_3 + local_28 * 3 + 2) = *(undefined *)(local_28 * 3 + (long)param_1);
+    local_28 = local_28 + 1;
+  }
+LAB_00104c78:
+  bVar1 = 2 < _DAT_002088e0;
+  if (bVar1) {
+    _DAT_002088e0 = 0;
+    DAT_00208988 = DAT_00208988 + 1;
+  }
+  return (ulong)bVar1;
+}
+
+ulong FUN_00104c9e(void *param_1,int param_2,void *param_3)
+{
+  BOOL bVar1;
+  ulong uVar2;
+  ulong local_28;
+  
+  uVar2 = SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) * ZEXT816(DAT_00208960) >> 0x41,0);
+  if (param_2 == 3) {
+    _DAT_002088e0 = _DAT_002088e0 + 1;
+    local_28 = 0;
+    while (local_28 < uVar2) {
+      *(undefined *)((long)param_3 + local_28 * 3 + 1) = *(undefined *)(local_28 + (long)param_1);
+      local_28 = local_28 + 1;
+    }
+    goto LAB_00104eaa;
+  }
+  if (param_2 < 4) {
+    if (param_2 == 2) {
+      _DAT_002088e0 = _DAT_002088e0 + 1;
+      local_28 = 0;
+      while (local_28 < uVar2) {
+        *(undefined *)((long)param_3 + local_28 * 3 + 2) = *(undefined *)(local_28 + (long)param_1);
+        local_28 = local_28 + 1;
+      }
+      goto LAB_00104eaa;
+    }
+  }
+  else {
+    if (param_2 == 4) {
+      _DAT_002088e0 = _DAT_002088e0 + 1;
+      local_28 = 0;
+      while (local_28 < uVar2) {
+        *(undefined *)(local_28 * 3 + (long)param_3) = *(undefined *)(local_28 + (long)param_1);
+        local_28 = local_28 + 1;
+      }
+      goto LAB_00104eaa;
+    }
+    if (param_2 == 5) {
+      _DAT_002088e0 = _DAT_002088e0 + 3;
+      local_28 = 0;
+      while (local_28 < uVar2) {
+        *(undefined *)(local_28 * 3 + (long)param_3) =
+             *(undefined *)((long)param_1 + local_28 * 3 + 2);
+        *(undefined *)((long)param_3 + local_28 * 3 + 1) =
+             *(undefined *)((long)param_1 + local_28 * 3 + 1);
+        *(undefined *)((long)param_3 + local_28 * 3 + 2) =
+             *(undefined *)(local_28 * 3 + (long)param_1);
+        local_28 = local_28 + 1;
+      }
+      goto LAB_00104eaa;
+    }
+  }
+  _DAT_002088e0 = _DAT_002088e0 + 3;
+  memcpy(param_3,param_1,DAT_00208960);
+LAB_00104eaa:
+  bVar1 = 2 < _DAT_002088e0;
+  if (bVar1) {
+    _DAT_002088e0 = 0;
+    DAT_00208988 = DAT_00208988 + 1;
+  }
+  return (ulong)bVar1;
+}
+
+ulong FUN_00104ed0(void *param_1,int param_2,void *param_3)
+{
+  BOOL bVar1;
+  ulong __n;
+  ulong uVar2;
+  ulong local_28;
+  
+  uVar2 = SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) * ZEXT816(DAT_00208960) >> 0x40,0);
+  __n = uVar2 >> 1;
+  if (param_2 == 3) {
+    _DAT_002088e0 = _DAT_002088e0 + 1;
+    memcpy((void *)((long)param_3 + __n),param_1,__n);
+    goto LAB_001050d9;
+  }
+  if (param_2 < 4) {
+    if (param_2 == 2) {
+      _DAT_002088e0 = _DAT_002088e0 + 1;
+      memcpy(param_3,param_1,__n);
+      goto LAB_001050d9;
+    }
+  }
+  else {
+    if (param_2 == 4) {
+      _DAT_002088e0 = _DAT_002088e0 + 1;
+      memcpy((void *)((uVar2 & 0xfffffffffffffffe) + (long)param_3),param_1,__n);
+      goto LAB_001050d9;
+    }
+    if (param_2 == 5) {
+      _DAT_002088e0 = _DAT_002088e0 + 3;
+      local_28 = 0;
+      while (local_28 < __n) {
+        *(undefined *)((long)param_3 + local_28) = *(undefined *)(local_28 * 3 + (long)param_1);
+        *(undefined *)((long)param_3 + local_28 + __n) =
+             *(undefined *)((long)param_1 + local_28 * 3 + 1);
+        *(undefined *)((long)param_3 + local_28 + (uVar2 & 0xfffffffffffffffe)) =
+             *(undefined *)((long)param_1 + local_28 * 3 + 2);
+        local_28 = local_28 + 1;
+      }
+      goto LAB_001050d9;
+    }
+  }
+  _DAT_002088e0 = _DAT_002088e0 + 3;
+  local_28 = 0;
+  while (local_28 < __n) {
+    *(undefined *)((long)param_3 + local_28) = *(undefined *)((long)param_1 + local_28 * 3 + 2);
+    *(undefined *)((long)param_3 + local_28 + __n) =
+         *(undefined *)((long)param_1 + local_28 * 3 + 1);
+    *(undefined *)((long)param_3 + local_28 + (uVar2 & 0xfffffffffffffffe)) =
+         *(undefined *)(local_28 * 3 + (long)param_1);
+    local_28 = local_28 + 1;
+  }
+LAB_001050d9:
+  bVar1 = 2 < _DAT_002088e0;
+  if (bVar1) {
+    _DAT_002088e0 = 0;
+    DAT_00208988 = DAT_00208988 + 1;
+  }
+  return (ulong)bVar1;
+}
+
+ulong FUN_001050ff(ulong param_1,int param_2)
+{
+  int local_1c;
+  ulong local_10;
+  
+  local_10 = param_1;
+  if (DAT_002088d0 <= param_1) {
+    local_10 = DAT_002088d0 - 1;
+  }
+  local_1c = param_2 + DAT_002088dc;
+  if (DAT_002088d8 <= local_1c) {
+    local_1c = local_1c - DAT_002088d8;
+  }
+  return (ulong)*(byte *)(local_10 + *(long *)(&DAT_002088e8 + (long)local_1c * 8));
+}
+
+void FUN_00105173(ulong param_1,int param_2,undefined *param_3,undefined *param_4,undefined *param_5)
+{
+  long lVar1;
+  int local_34;
+  ulong local_10;
+  
+  local_10 = param_1;
+  if (SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) * ZEXT816(DAT_002088d0) >> 0x41,0) <= param_1) {
+    local_10 = SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) * ZEXT816(DAT_002088d0) >> 0x41,0) - 1;
+  }
+  local_34 = param_2 + DAT_002088dc;
+  if (DAT_002088d8 <= local_34) {
+    local_34 = local_34 - DAT_002088d8;
+  }
+  lVar1 = *(long *)(&DAT_002088e8 + (long)local_34 * 8);
+  *param_3 = *(undefined *)(local_10 + lVar1);
+  *param_4 = *(undefined *)
+              (SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) * ZEXT816(DAT_002088d0) >> 0x41,0) + lVar1 +
+              local_10);
+  *param_5 = *(undefined *)
+              (SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) * ZEXT816(DAT_002088d0 * 2) >> 0x41,0) + lVar1 +
+              local_10);
+  return;
+}
+
+void FUN_0010561d(float param_1,float param_2,undefined *param_3)
+{
+  undefined *puVar1;
+  ulong uVar2;
+  long lVar3;
+  float local_88 [19];
+  int local_3c;
+  int local_38;
+  int local_34;
+  int local_30;
+  int local_2c;
+  undefined *local_28;
+  float local_20;
+  float local_1c;
+  
+  local_2c = (int)param_1;
+  local_30 = (int)param_2;
+  local_38 = 0;
+  local_34 = 0;
+  local_28 = param_3;
+  local_20 = param_2;
+  local_1c = param_1;
+  while (puVar1 = local_28, local_38 < 4) {
+    local_3c = 0;
+    while (local_3c < 4) {
+      lVar3 = (long)local_34;
+      uVar2 = FUN_001050ff((long)(local_38 + local_2c + -1),local_3c);
+      local_88[lVar3] = (float)(int)(short)((ushort)uVar2 & 0xff);
+      local_34 = local_34 + 1;
+      local_3c = local_3c + 1;
+    }
+    local_38 = local_38 + 1;
+  }
+  uVar2 = FUN_0010553d((long)local_88);
+  *puVar1 = (char)uVar2;
+  return;
+}
+
+void FUN_001056c7(float param_1,float param_2,undefined *param_3)
+{
+  undefined *puVar1;
+  ulong uVar2;
+  long lVar3;
+  float local_88 [19];
+  int local_3c;
+  int local_38;
+  int local_34;
+  int local_30;
+  int local_2c;
+  undefined *local_28;
+  float local_20;
+  float local_1c;
+  
+  local_2c = (int)param_1;
+  local_30 = (int)param_2;
+  local_38 = 0;
+  local_34 = 0;
+  local_28 = param_3;
+  local_20 = param_2;
+  local_1c = param_1;
+  while (puVar1 = local_28, local_38 < 4) {
+    local_3c = 0;
+    while (local_3c < 4) {
+      lVar3 = (long)local_34;
+      uVar2 = FUN_001050ff((long)(local_38 + local_2c + -1),local_3c);
+      local_88[lVar3] = (float)(int)(short)((ushort)uVar2 & 0xff);
+      local_34 = local_34 + 1;
+      local_3c = local_3c + 1;
+    }
+    local_38 = local_38 + 1;
+  }
+  uVar2 = FUN_0010553d((long)local_88);
+  *puVar1 = (char)uVar2;
+  return;
+}
+
+void FUN_00105771(float param_1,float param_2,undefined *param_3,undefined *param_4,
+                 undefined *param_5)
+{
+  undefined *puVar1;
+  undefined *puVar2;
+  ulong uVar3;
+  float local_118 [16];
+  float local_d8 [16];
+  float local_98 [19];
+  int local_4c;
+  int local_48;
+  int local_44;
+  int local_40;
+  int local_3c;
+  undefined *local_38;
+  undefined *local_30;
+  undefined *local_28;
+  float local_20;
+  float local_1c;
+  
+  local_3c = (int)param_1;
+  local_40 = (int)param_2;
+  local_48 = 0;
+  local_44 = 0;
+  local_38 = param_5;
+  local_30 = param_4;
+  local_28 = param_3;
+  local_20 = param_2;
+  local_1c = param_1;
+  while (puVar1 = local_28, local_48 < 4) {
+    local_4c = 0;
+    while (local_4c < 4) {
+      FUN_00105279((long)(local_48 + local_3c + -1),local_4c,local_98 + local_44,local_d8 + local_44
+                   ,local_118 + local_44);
+      local_44 = local_44 + 1;
+      local_4c = local_4c + 1;
+    }
+    local_48 = local_48 + 1;
+  }
+  uVar3 = FUN_0010553d((long)local_98);
+  puVar2 = local_30;
+  *puVar1 = (char)uVar3;
+  uVar3 = FUN_0010553d((long)local_d8);
+  puVar1 = local_38;
+  *puVar2 = (char)uVar3;
+  uVar3 = FUN_0010553d((long)local_118);
+  *puVar1 = (char)uVar3;
+  return;
+}
+
+ulong FUN_00105879(float param_1,float param_2,float param_3,float param_4,undefined *param_5)
+{
+  ulong uVar1;
+  float fVar2;
+  float fVar3;
+  __int128 auVar4;
+  float local_50;
+  float local_4c;
+  float local_40;
+  float local_3c;
+  int local_38;
+  int local_34;
+  int local_30;
+  int local_2c;
+  
+  local_38 = (int)param_2;
+  local_2c = (int)param_3;
+  local_30 = (int)param_4;
+  if ((float)local_2c != param_3) {
+    local_2c = local_2c + 1;
+  }
+  if ((float)local_30 != param_4) {
+    local_30 = local_30 + 1;
+  }
+  local_50 = 0.00000000;
+  local_4c = 0.00000000;
+  while (local_38 < local_30) {
+    local_3c = param_2;
+    if (param_2 <= (float)local_38) {
+      local_3c = (float)local_38;
+    }
+    local_40 = param_4;
+    if ((float)(local_38 + 1) <= param_4) {
+      local_40 = (float)(local_38 + 1);
+    }
+    fVar2 = local_40 - local_3c;
+    local_34 = (int)param_1;
+    while (local_34 < local_2c) {
+      uVar1 = FUN_001050ff((long)local_34,local_38);
+      local_3c = param_1;
+      if (param_1 <= (float)local_34) {
+        local_3c = (float)local_34;
+      }
+      local_40 = param_3;
+      if ((float)(local_34 + 1) <= param_3) {
+        local_40 = (float)(local_34 + 1);
+      }
+      fVar3 = (local_40 - local_3c) * fVar2;
+      local_50 = local_50 + fVar3;
+      local_4c = local_4c + (float)(int)(short)(ushort)(byte)uVar1 * fVar3;
+      local_34 = local_34 + 1;
+    }
+    local_38 = local_38 + 1;
+  }
+  if (local_50 != 0.00000000) {
+    auVar4 = movlpd(ZEXT416((uint)(local_4c / local_50)),0x3fe0000000000000);
+    *param_5 = (char)(int)(SUB168(auVar4,0) + (double)(local_4c / local_50));
+  }
+  return (ulong)(local_50 != 0.00000000);
+}
+
+ulong FUN_00105aa6(float param_1,float param_2,float param_3,float param_4,undefined *param_5)
+{
+  ulong uVar1;
+  float fVar2;
+  float fVar3;
+  __int128 auVar4;
+  float local_50;
+  float local_4c;
+  float local_40;
+  float local_3c;
+  int local_38;
+  int local_34;
+  int local_30;
+  int local_2c;
+  
+  local_38 = (int)param_2;
+  local_2c = (int)param_3;
+  local_30 = (int)param_4;
+  if ((float)local_2c != param_3) {
+    local_2c = local_2c + 1;
+  }
+  if ((float)local_30 != param_4) {
+    local_30 = local_30 + 1;
+  }
+  local_50 = 0.00000000;
+  local_4c = 0.00000000;
+  while (local_38 < local_30) {
+    local_3c = param_2;
+    if (param_2 <= (float)local_38) {
+      local_3c = (float)local_38;
+    }
+    local_40 = param_4;
+    if ((float)(local_38 + 1) <= param_4) {
+      local_40 = (float)(local_38 + 1);
+    }
+    fVar2 = local_40 - local_3c;
+    local_34 = (int)param_1;
+    while (local_34 < local_2c) {
+      uVar1 = FUN_001050ff((long)local_34,local_38);
+      local_3c = param_1;
+      if (param_1 <= (float)local_34) {
+        local_3c = (float)local_34;
+      }
+      local_40 = param_3;
+      if ((float)(local_34 + 1) <= param_3) {
+        local_40 = (float)(local_34 + 1);
+      }
+      fVar3 = (local_40 - local_3c) * fVar2;
+      local_50 = local_50 + fVar3;
+      local_4c = local_4c + (float)(int)(short)(ushort)(byte)uVar1 * fVar3;
+      local_34 = local_34 + 1;
+    }
+    local_38 = local_38 + 1;
+  }
+  if (local_50 != 0.00000000) {
+    auVar4 = movlpd(ZEXT416((uint)(local_4c / local_50)),0x3fe0000000000000);
+    *param_5 = (char)(int)(SUB168(auVar4,0) + (double)(local_4c / local_50));
+  }
+  return (ulong)(local_50 != 0.00000000);
+}
+
+ulong FUN_00105cd3(float param_1,float param_2,float param_3,float param_4,undefined *param_5,
+                  undefined *param_6,undefined *param_7)
+{
+  double dVar1;
+  __int128 auVar2;
+  byte local_6f;
+  byte local_6e;
+  byte local_6d;
+  float local_6c;
+  float local_68;
+  float local_64;
+  float local_60;
+  float local_5c;
+  float local_58;
+  float local_54;
+  float local_50;
+  float local_4c;
+  int local_48;
+  int local_44;
+  int local_40;
+  int local_3c;
+  int local_38;
+  int local_34;
+  undefined *local_30;
+  undefined *local_28;
+  undefined *local_20;
+  float local_18;
+  float local_14;
+  float local_10;
+  float local_c;
+  
+  local_34 = (int)param_1;
+  local_48 = (int)param_2;
+  local_3c = (int)param_3;
+  local_40 = (int)param_4;
+  if ((float)local_3c != param_3) {
+    local_3c = local_3c + 1;
+  }
+  if ((float)local_40 != param_4) {
+    local_40 = local_40 + 1;
+  }
+  local_68 = 0.00000000;
+  local_64 = 0.00000000;
+  local_60 = 0.00000000;
+  local_5c = 0.00000000;
+  local_38 = local_48;
+  local_30 = param_7;
+  local_28 = param_6;
+  local_20 = param_5;
+  local_18 = param_4;
+  local_14 = param_3;
+  local_10 = param_2;
+  local_c = param_1;
+  while (local_48 < local_40) {
+    local_4c = (float)local_48;
+    local_50 = (float)(local_48 + 1);
+    if (local_4c < local_10) {
+      local_4c = local_10;
+    }
+    if (local_18 < local_50) {
+      local_50 = local_18;
+    }
+    local_54 = local_50 - local_4c;
+    local_44 = local_34;
+    while (local_44 < local_3c) {
+      FUN_00105173((long)local_44,local_48,&local_6d,&local_6e,&local_6f);
+      local_4c = (float)local_44;
+      local_50 = (float)(local_44 + 1);
+      if (local_4c < local_c) {
+        local_4c = local_c;
+      }
+      if (local_14 < local_50) {
+        local_50 = local_14;
+      }
+      local_58 = local_50 - local_4c;
+      local_6c = local_58 * local_54;
+      local_68 = local_68 + local_6c;
+      local_5c = local_5c + (float)(int)(short)(ushort)local_6d * local_6c;
+      local_60 = local_60 + (float)(int)(short)(ushort)local_6e * local_6c;
+      local_64 = local_64 + (float)(int)(short)(ushort)local_6f * local_6c;
+      local_44 = local_44 + 1;
+    }
+    local_48 = local_48 + 1;
+  }
+  if (local_68 != 0.00000000) {
+    auVar2 = movlpd(ZEXT416((uint)(local_64 / local_68)),0x3fe0000000000000);
+    dVar1 = SUB168(auVar2,0) + (double)(local_5c / local_68);
+    *local_20 = (char)(int)dVar1;
+    auVar2 = movlpd(CONCAT88(SUB168(auVar2 >> 0x40,0),dVar1),0x3fe0000000000000);
+    dVar1 = SUB168(auVar2,0) + (double)(local_60 / local_68);
+    *local_28 = (char)(int)dVar1;
+    auVar2 = movlpd(CONCAT88(SUB168(auVar2 >> 0x40,0),dVar1),0x3fe0000000000000);
+    *local_30 = (char)(int)(SUB168(auVar2,0) + (double)(local_64 / local_68));
+  }
+  return (ulong)(local_68 != 0.00000000);
+}
+
+ulong FUN_00104754(void *param_1,int param_2)
+{
+  short sVar1;
+  ulong __n;
+  ulong uVar2;
+  uint local_34;
+  int local_30;
+  void *local_28;
+  ulong local_20;
+  
+  local_34 = 0;
+  uVar2 = SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) * ZEXT816(DAT_002088d0) >> 0x40,0);
+  __n = uVar2 >> 1;
+  if (param_1 == (void *)0x0) {
+    local_30 = DAT_002088dc + -1;
+    if (local_30 < 0) {
+      local_30 = DAT_002088d8 + -1;
+    }
+    memmove(*(void **)(&DAT_002088e8 + (long)DAT_002088dc * 8),
+            *(void **)(&DAT_002088e8 + (long)local_30 * 8),DAT_002088d0);
+    _DAT_002088e0 = _DAT_002088e0 + 3;
+  }
+  else {
+    local_28 = *(void **)(&DAT_002088e8 + (long)DAT_002088dc * 8);
+    if (param_2 == 3) {
+      _DAT_002088e0 = _DAT_002088e0 + 1;
+      memmove((void *)((long)local_28 + __n),param_1,__n);
+    }
+    else {
+      if (param_2 < 4) {
+        if (param_2 == 2) {
+          _DAT_002088e0 = _DAT_002088e0 + 1;
+          memmove(local_28,param_1,__n);
+          goto LAB_001049eb;
+        }
+      }
+      else {
+        if (param_2 == 4) {
+          _DAT_002088e0 = _DAT_002088e0 + 1;
+          memmove((void *)((uVar2 & 0xfffffffffffffffe) + (long)local_28),param_1,__n);
+          goto LAB_001049eb;
+        }
+        if (param_2 == 5) {
+          _DAT_002088e0 = _DAT_002088e0 + 3;
+          local_20 = 0;
+          while (local_20 < __n) {
+            *(undefined *)((long)local_28 + local_20) = *(undefined *)(local_20 * 3 + (long)param_1)
+            ;
+            *(undefined *)((long)local_28 + local_20 + __n) =
+                 *(undefined *)((long)param_1 + local_20 * 3 + 1);
+            *(undefined *)((long)local_28 + local_20 + (uVar2 & 0xfffffffffffffffe)) =
+                 *(undefined *)((long)param_1 + local_20 * 3 + 2);
+            local_20 = local_20 + 1;
+          }
+          goto LAB_001049eb;
+        }
+      }
+      _DAT_002088e0 = _DAT_002088e0 + 3;
+      local_20 = 0;
+      while (local_20 < __n) {
+        *(undefined *)((long)local_28 + local_20) = *(undefined *)((long)param_1 + local_20 * 3 + 2)
+        ;
+        *(undefined *)((long)local_28 + local_20 + __n) =
+             *(undefined *)((long)param_1 + local_20 * 3 + 1);
+        *(undefined *)((long)local_28 + local_20 + (uVar2 & 0xfffffffffffffffe)) =
+             *(undefined *)(local_20 * 3 + (long)param_1);
+        local_20 = local_20 + 1;
+      }
+    }
+  }
+LAB_001049eb:
+  sVar1 = DAT_00208988;
+  if (2 < _DAT_002088e0) {
+    _DAT_002088e0 = 0;
+    DAT_002088dc = DAT_002088dc + 1;
+    DAT_00208988 = DAT_00208988 + 1;
+    if (DAT_002088d8 <= DAT_002088dc) {
+      DAT_002088dc = 0;
+    }
+    if (sVar1 == 0) {
+      memmove(*(void **)(&DAT_002088e0 + (long)DAT_002088d8 * 8),local_28,DAT_002088d0);
+    }
+    local_34 = 1;
+  }
+  return (ulong)local_34;
+}
+
+void FUN_00105279(ulong param_1,int param_2,float *param_3,float *param_4,float *param_5)
+{
+  long lVar1;
+  int local_34;
+  ulong local_10;
+  
+  local_10 = param_1;
+  if (SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) * ZEXT816(DAT_002088d0) >> 0x41,0) <= param_1) {
+    local_10 = SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) * ZEXT816(DAT_002088d0) >> 0x41,0) - 1;
+  }
+  local_34 = param_2 + DAT_002088dc;
+  if (DAT_002088d8 <= local_34) {
+    local_34 = local_34 - DAT_002088d8;
+  }
+  lVar1 = *(long *)(&DAT_002088e8 + (long)local_34 * 8);
+  *param_3 = (float)(int)(short)(ushort)*(byte *)(local_10 + lVar1);
+  *param_4 = (float)(int)(short)(ushort)*(byte *)(SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) *
+                                                         ZEXT816(DAT_002088d0) >> 0x41,0) + lVar1 +
+                                                 local_10);
+  *param_5 = (float)(int)(short)(ushort)*(byte *)(SUB168(ZEXT816(0xaaaaaaaaaaaaaaab) *
+                                                         ZEXT816(DAT_002088d0 * 2) >> 0x41,0) +
+                                                  lVar1 + local_10);
+  return;
+}
+
+ulong FUN_0010553d(long param_1)
+{
+  long lVar1;
+  long lVar2;
+  long lVar3;
+  undefined4 extraout_XMM0_Da;
+  float extraout_XMM0_Da_00;
+  uint local_4c;
+  undefined4 local_38 [5];
+  int local_24;
+  long local_20;
+  
+  lVar1 = (long)DAT_00208c40;
+  lVar2 = (long)DAT_00208ee0;
+  local_24 = 0;
+  local_20 = param_1;
+  while (local_24 < 4) {
+    lVar3 = (long)local_24;
+    FUN_001053a0((long)(&DAT_00208c64 + lVar2 * 0x14),(long)local_24 * 0x10 + local_20);
+    local_38[lVar3] = extraout_XMM0_Da;
+    local_24 = local_24 + 1;
+  }
+  FUN_001053a0((long)local_38,(long)(&DAT_002089c4 + lVar1 * 0x14));
+  local_4c = (uint)extraout_XMM0_Da_00;
+  if ((int)local_4c < 0) {
+    local_4c = 0;
+  }
+  else {
+    if (0xff < (int)local_4c) {
+      local_4c = 0xff;
+    }
+  }
+  return (ulong)local_4c;
+}
+
+ulong FUN_001053a0(long param_1,long param_2)
+{
+  float local_20;
+  int local_1c;
+  
+  local_20 = 0.00000000;
+  local_1c = 0;
+  while (local_1c < 4) {
+    local_20 = local_20 +
+               *(float *)((long)local_1c * 4 + param_1) * *(float *)((long)local_1c * 4 + param_2);
+    local_1c = local_1c + 1;
+  }
+  return (ulong)(uint)local_20;
+}
+
 ulong ChangeResoInit(undefined8 *param_1)
 {
   ulong uVar1;
