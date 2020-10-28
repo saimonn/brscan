@@ -27,7 +27,7 @@ uint64_t DAT_002088d0;
 uint32_t DAT_002088d8;
 uint32_t DAT_002088dc;
 uint64_t DAT_002088e0;
-uint64_t DAT_002088e8;
+long DAT_002088e8;
 uint32_t DAT_00208920;
 uint32_t DAT_00208924;
 uint32_t DAT_00208928;
@@ -2296,44 +2296,29 @@ long ChangeResoWrite(undefined8 param_1,undefined4 *param_2)
 
 ulong ChangeResoWriteStart(void)
 {
-  uint local_10;
-  int local_c;
-  
   DAT_002088dc = 0;
   _DAT_002088e0 = 0;
   DAT_00208988 = 0;
   if (DAT_002088c0 != 0) {
     _DAT_002088c8 = DAT_002088c0;
     if (DAT_002088c0 == 0) {
-      local_10 = 0;
-      goto LAB_001015ee;
+      return 0;
     }
-    local_c = 0;
-    while (local_c < DAT_002088d8) {
-      *(long *)(&DAT_002088e8 + (long)local_c * 8) = local_c * DAT_002088d0 + _DAT_002088c8;
-      local_c = local_c + 1;
-    }
+    for (int i = 0; i < DAT_002088d8; i++)
+      *(long *)(&DAT_002088e8 + (long)i * 8) = i * DAT_002088d0 + _DAT_002088c8;
   }
-  local_10 = 1;
-LAB_001015ee:
-  return (ulong)local_10;
+  return 1;
 }
 
 long ChangeResoWriteEnd(undefined8 param_1,undefined4 *param_2)
 {
-  long lVar1;
-  int local_24;
   long local_20;
   
   local_20 = 0;
   *param_2 = 0;
   if ((_DAT_002088c8 != 0) && (2 < DAT_00208988)) {
-    local_24 = 0;
-    while (local_24 < 2) {
-      lVar1 = (*DAT_00208990)(param_1,param_2);
-      local_20 = local_20 + lVar1;
-      local_24 = local_24 + 1;
-    }
+    for (int local_24 = 0; local_24 < 2; local_24++)
+      local_20 += (*DAT_00208990)(param_1,param_2);
     _DAT_002088c8 = 0;
   }
   return local_20;
