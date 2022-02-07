@@ -47,7 +47,7 @@ Start: 2.4.2001
 #elif  BRSANESUFFIX == 1
 #define BACKEND_NAME brother
 #else
-Not support (force causing compile error)
+#error "Not supported (force causing compile error)"
 #endif   //BRSANESUFFIX
 #endif
 
@@ -610,6 +610,9 @@ sane_open (SANE_String_Const devicename, SANE_Handle *handle)
     this->modelInf.index = pdev->modelInf.index;
 
     this->modelInf.seriesNo = pdev->modelInf.seriesNo;
+    // Workaround for DCP1510
+    if (this->modelInf.seriesNo == 14)
+	    this->modelInf.seriesNo = BHMINI_FB_ONLY;
     this->modelInf.modelName = pdev->modelInf.modelName;
     this->modelInf.modelTypeName = pdev->modelInf.modelTypeName;
 
