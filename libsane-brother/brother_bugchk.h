@@ -25,7 +25,7 @@ extern	void	bugchk_free(void *ptr , int line, const char *file) ;
 
 #ifndef	NDEBUG
  #define MALLOC(size)	bugchk_malloc((size), __LINE__, __FILE__)
- #define FREE(ptr)	bugchk_free((ptr), __LINE__, __FILE__); (ptr)=NULL
+ #define FREE(ptr)	do { bugchk_free((ptr), __LINE__, __FILE__); (ptr)=NULL; } while (0)
 #else
  #define MALLOC(size)	malloc((size))
  #define FREE(ptr)	free((ptr))
