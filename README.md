@@ -35,6 +35,7 @@ ATTRS{idVendor}=="04f9", ATTRS{idProduct}=="02d0", ENV{libsane_matched}="yes"
 Ensure the brother backend is loaded, and the scanner is detected:
 
 ```
+SANE_DEBUG_DLL=5 scanimage -L
 [dll] add_backend: adding backend `brother'
 [dll] load: searching backend `brother' in `/usr/lib/aarch64-linux-gnu/sane:/usr/lib/sane'
 [dll] load: trying to load `/usr/lib/aarch64-linux-gnu/sane/libsane-brother.so.1'
