@@ -43,6 +43,10 @@
 
 #include "brother_modelinf.h"
 
+#define min(x,y) ( \
+    { __auto_type __x = (x); __auto_type __y = (y); \
+      __x < __y ? __x : __y; })
+
 /*==========================================*/
 /*		prototype		    */
 /*==========================================*/
@@ -1660,12 +1664,16 @@ int KeyNameCheckString(LPCTSTR lpKeyName, char *buf)
 		if(keyNameEnd != NULL)
 		{
 			*keyNameEnd = NULL_C;					/* convert  '=' to NULL */
-			for(i=0;i<BUF_SIZE; i++)
+			res = END;
+			for (int i = 0, e = min(min(BUF_SIZE, strlen(lpKeyName)), strlen(buf)); i < e; i++)
 			{
-				f_char  = tolower(*(buf+i));		/* convert to lower case */
-				lp_char = tolower(*(lpKeyName+i));	/* convert to lower case */
-				if(f_char != lp_char)	break;
-				else if(*(buf+i)== NULL_C)	res = END;
+				f_char  = tolower(buf[i]);
+				lp_char = tolower(lpKeyName[i]);
+				if (f_char != lp_char)
+				{
+					res = NOEND;
+					break;
+				}
 			}
 			*keyNameEnd = '=';						/*  restore */
 		}
@@ -1912,7 +1920,6 @@ int GetModelInfoSize(int *size,int *record,char *buf)
 int GetModelInfoKeyValueSize(LPCTSTR lpKeyName,int *size,char *buf)
 {
 	int		res;
-	int		i;
 	int		lp_char;
 	int		f_char;
 	char	*keyNameEnd;
@@ -1928,19 +1935,16 @@ int GetModelInfoKeyValueSize(LPCTSTR lpKeyName,int *size,char *buf)
 		if(keyNameEnd != NULL)
 		{
 			*keyNameEnd = NULL_C;					/*  convert '=' to NULL */
-			for(i=0;i<BUF_SIZE; i++)
+			*size = strlen(keyNameEnd+1);
+			res = FIND;
+			for (int i = 0, e = min(min(BUF_SIZE, strlen(lpKeyName)), strlen(buf)); i < e; i++)
 			{
-				f_char  = tolower(*(buf+i));		/* convert to lower case */
-				lp_char = tolower(*(lpKeyName+i));	/* convert to lower case */
-				if(f_char != lp_char)
+				f_char  = tolower(buf[i]);		/* convert to lower case */
+				lp_char = tolower(lpKeyName[i]);	/* convert to lower case */
+				if (f_char != lp_char)
 				{
+					res = NOFIND;
 					break;
-				}
-				else if(*(buf+i)== NULL_C)
-				{
-					/* KeyName */
-					*size = strlen(keyNameEnd+1);
-					res = FIND;
 				}
 			}
 		}
