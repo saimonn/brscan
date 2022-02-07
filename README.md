@@ -29,10 +29,20 @@ Bus 005 Device 005: ID 04f9:02d0 Brother Industries, Ltd
 ```
 cat /etc/udev/rules.d/60-libsane.rules
 # Brother scanners
-ATTRS{idVendor}=="04f9", ATTRS{idProduct}=="02d0", ENV{libsane_matched}="yes"
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="04f9", ATTRS{idProduct}=="02d0", GROUP="lp", ENV{libsane_matched}="yes", MODE="0666"
 ```
 
-Ensure the brother backend is loaded, and the scanner is detected:
+Ensure the udev device has `rw` permissions (reboot might be needed):
+
+```
+ls -l /dev/bus/usb/00* | grep -C 3 lp
+/dev/bus/usb/004:
+total 0
+crw-rw-r-- 1 root root 189, 384 Feb  7 20:56 001
+crw-rw-rw- 1 root lp   189, 385 Feb  7 20:59 002
+```
+
+Ensure the Brother backend is loaded, and the scanner is detected:
 
 ```
 SANE_DEBUG_DLL=5 scanimage -L
