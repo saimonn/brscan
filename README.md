@@ -68,5 +68,10 @@ scanimage -T
 
 ## Bugs
 
-For DCP1510 `QueryScannerInfo()` is failing during `sane_brother_start()`
+For DCP1510 `QueryScannerInfo()` is failing during `sane_brother_start()`:
+
+```
+scanimage: sane_start: Invalid argument
+```
+
 
