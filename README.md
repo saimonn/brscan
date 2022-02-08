@@ -11,8 +11,10 @@ sudo apt install libsane-dev libusb-dev libncurses5-dev pkg-config
 ## Building & Installing
 
 ```
-./configure --prefix=/usr
-make -j12
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+make -j4
 sudo make install
 sudo sh -c "echo brother >> /etc/sane.d/dll.conf"
 ```
