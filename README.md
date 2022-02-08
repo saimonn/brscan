@@ -60,6 +60,12 @@ SANE_DEBUG_DLL=5 scanimage -L
 device `brother:bus5;dev1' is a Brother DCP-1510 USB scanner
 ```
 
+## Testing
+
+```
+scanimage -T
+```
+
 ## Bugs
 
 For DCP1510 `QueryScannerInfo()` is failing during `sane_brother_start()`
