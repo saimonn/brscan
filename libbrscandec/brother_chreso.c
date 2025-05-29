@@ -1787,7 +1787,7 @@ ulong FUN_00105879(float param_1,float param_2,float param_3,float param_4,undef
   ulong uVar1;
   float fVar2;
   float fVar3;
-  int128_t auVar4;
+  int64_t auVar4;
   float local_50;
   float local_4c;
   float local_40;
@@ -1848,7 +1848,7 @@ ulong FUN_00105aa6(float param_1,float param_2,float param_3,float param_4,undef
   ulong uVar1;
   float fVar2;
   float fVar3;
-  int128_t auVar4;
+  int64_t auVar4;
   float local_50;
   float local_4c;
   float local_40;
@@ -1908,7 +1908,7 @@ ulong FUN_00105cd3(float param_1,float param_2,float param_3,float param_4,undef
                   undefined *param_6,undefined *param_7)
 {
   double dVar1;
-  int128_t auVar2;
+  int64_t auVar2;
   byte local_6f;
   byte local_6e;
   byte local_6d;
