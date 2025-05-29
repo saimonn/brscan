@@ -5,7 +5,7 @@ As Brother does not ship ARM binaries, they could be compiled using the instruct
 ## Prerequisites
 
 ```
-sudo apt install libsane-dev libusb-dev libncurses5-dev pkg-config
+sudo apt install libsane-dev libusb-dev libusb-1.0-0-dev libncurses5-dev pkg-config cmake build-essential
 ```
 
 ## Building & Installing
