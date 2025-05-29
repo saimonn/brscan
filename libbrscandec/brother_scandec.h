@@ -81,10 +81,10 @@ typedef unsigned short undefined2;
 typedef uint32_t undefined4;
 typedef uint64_t undefined8;
 
-__int128__ ZEXT816(int64_t val);
-__int128__ ZEXT416(int32_t val);
-int64_t SUB168(__int128__ val1, int64_t val2);
-__int128__ CONCAT88(int64_t val1, int64_t val2);
-__int128__ movlpd(__int128__ val1, double val2);
+int128_t ZEXT816(int64_t val);
+int128_t ZEXT416(int32_t val);
+int64_t SUB168(int128_t val1, int64_t val2);
+int128_t CONCAT88(int64_t val1, int64_t val2);
+int128_t movlpd(int128_t val1, double val2);
 
 #endif	/* ! __BROTHER_SCAN_DECODE_H */
